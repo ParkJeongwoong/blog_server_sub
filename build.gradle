@@ -1,0 +1,47 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.1'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+
+group 'io.github.parkjeongwoong'
+version '1.0.4-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
+sourceCompatibility = 1.9
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    // Spring
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    // Lombok
+    implementation('org.projectlombok:lombok:1.18.24')
+    annotationProcessor('org.projectlombok:lombok:1.18.24')
+    testImplementation('org.projectlombok:lombok:1.18.24')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.24')
+
+    // JPA
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation("org.mariadb.jdbc:mariadb-java-client")
+    implementation('com.h2database:h2')
+
+    // Mustache (replace JSP)
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
+
+    // Auth
+//    implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
+//    implementation('org.springframework.session:spring-session-jdbc')
+//    testImplementation("org.springframework.security:spring-security-test")
+
+    // DB
+    implementation("org.springframework.session:spring-session-jdbc")
+    implementation("org.mariadb.jdbc:mariadb-java-client")
+}
+targetCompatibility = JavaVersion.VERSION_1_9

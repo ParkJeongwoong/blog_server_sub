@@ -1,0 +1,24 @@
+language: java
+jdk:
+    - openjdk8
+
+branches:
+  only:
+    - master
+      
+# 권한 문제로 gradlew가 동작하지 않아 Build가 안 되는 문제 해결
+before_install:
+  - chmod +x gradlew
+
+# Travis CI Server Home
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$Home/.gradle'
+script: "./gradlew clean build"
+
+# Email alarm after CI complete
+notifications:
+  email:
+    recipients:
+      - 'dvlprjw@gmail.com'

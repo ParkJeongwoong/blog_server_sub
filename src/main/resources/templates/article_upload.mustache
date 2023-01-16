@@ -1,0 +1,33 @@
+{{>layout/header}}
+
+<h1>Article Upload</h1>
+<div class="col-md-12">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="author"> 마크다운 파일 업로드 </label>
+                <br/>
+                <input type="file" id="markdown-upload" accept=".md"  placeholder="마크다운 파일을 선택헤주세요">
+            </div>
+            <div class="form-group">
+                <label for="author"> 이미지 파일 업로드 </label>
+                <br/>
+                <input type="file" id="image-upload" multiple="multiple" accept="image/*" placeholder="이미지 파일을 선택헤주세요">
+            </div>
+            <div>
+                <label>카테고리</label>
+                <br/>
+                <input type="text" id="markdown-category">
+            </div>
+            <div>
+                <label>서브카테고리</label>
+                <br/>
+                <input type="text" id="markdown-subCategory">
+            </div>
+        </form>
+        <br/>
+        <button type="button" class="btn btn-primary" id="btn-upload">등록</button>
+    </div>
+</div>
+
+{{>layout/footer}}
