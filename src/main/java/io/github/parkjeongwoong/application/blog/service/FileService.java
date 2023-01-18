@@ -8,6 +8,7 @@ import io.github.parkjeongwoong.entity.Article;
 import io.github.parkjeongwoong.application.blog.repository.ImageRepository;
 import io.github.parkjeongwoong.entity.Image;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class FileService implements FileUsecase {
@@ -69,8 +71,8 @@ public class FileService implements FileUsecase {
     }
 
     private boolean compareImageCnt(int uploadedImageCnt, int articleImageCnt) throws InputMismatchException {
-        System.out.println("업로드된 이미지 개수 : " + uploadedImageCnt);
-        System.out.println("파일의 이미지 개수 : " + articleImageCnt);
+        log.info("업로드된 이미지 개수 : {}", uploadedImageCnt);
+        log.info("파일의 이미지 개수 : {}", articleImageCnt);
         return uploadedImageCnt != articleImageCnt;
     }
 

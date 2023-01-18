@@ -35,13 +35,15 @@ dependencies {
     // Mustache (replace JSP)
     implementation('org.springframework.boot:spring-boot-starter-mustache')
 
-    // Auth
-//    implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
-//    implementation('org.springframework.session:spring-session-jdbc')
-//    testImplementation("org.springframework.security:spring-security-test")
-
     // DB
     implementation("org.springframework.session:spring-session-jdbc")
     implementation("org.mariadb.jdbc:mariadb-java-client")
+
+    // Logging
+    implementation('org.slf4j:jcl-over-slf4j')
+    implementation('ch.qos.logback:logback-classic')
+
+    // Mailing
+    implementation('org.springframework.boot:spring-boot-starter-mail')
 }
 targetCompatibility = JavaVersion.VERSION_1_9

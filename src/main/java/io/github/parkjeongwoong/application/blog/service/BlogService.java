@@ -25,7 +25,6 @@ public class BlogService implements BlogUsecase {
 
     public void visited(VisitorSaveRequestDto requestDto) {
         Visitor visitor = requestDto.toEntity();
-        visitor.setData();
         System.out.println("Visitor just visited : " + visitor.getUrl());
         System.out.println("Visitor's IP address is : " + visitor.getIp());
         System.out.println("Current Time : " + new Date());

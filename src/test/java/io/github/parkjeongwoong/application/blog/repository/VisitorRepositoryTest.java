@@ -31,7 +31,6 @@ public class VisitorRepositoryTest {
         Visitor visitor_set1 = Visitor.builder()
                 .url(url1)
                 .build();
-        visitor_set1.setData();
 
         String url2 = "https://github.com/ParkJeongwoong/";
         String ip2 = "127.0.0.1";
@@ -41,7 +40,6 @@ public class VisitorRepositoryTest {
                 .url(url2)
                 .lastPage(lastPage2)
                 .build();
-        visitor_set2.setData();
 
         visitorRepository.save(visitor_set1);
         visitorRepository.save(visitor_set2);

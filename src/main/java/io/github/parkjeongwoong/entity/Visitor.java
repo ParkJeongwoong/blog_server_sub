@@ -30,28 +30,10 @@ public class Visitor extends BaseTimeEntity {
     private boolean justVisited;
 
     @Builder
-    public Visitor(String url, String lastPage) {
+    public Visitor(String url, String lastPage, String ip) {
         this.url = url;
         this.lastPage = lastPage;
-    }
-
-    public void setData() {
-        setIp();
-        setJustVisited();
-    }
-
-    private void setIp() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        String ip = request.getHeader("X-FORWARDED-FOR");
-        System.out.println("X-FORWARDED-FOR : " + ip);
-        if (ip == null) {
-            ip = request.getRemoteAddr();
-            System.out.println("getRemoteAddr : " + ip);
-        }
         this.ip = ip;
-    }
-
-    private void setJustVisited() {
         this.justVisited = this.lastPage == null;
     }
 }
