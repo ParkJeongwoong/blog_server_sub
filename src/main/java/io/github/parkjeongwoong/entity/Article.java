@@ -2,6 +2,7 @@ package io.github.parkjeongwoong.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 @Getter
 @NoArgsConstructor
 @Entity
@@ -64,8 +66,8 @@ public class Article {
         String fileDate = fileName.substring(0,8);
         if (!fileDate.matches("^[0-9]+$")) throw new NoResultException("파일 이름의 첫 8자리는 작성일로 만들어주세요 (ex. 20220731_파일명)");
 
-        System.out.println("fileName : " + fileName);
-        System.out.println("title : " + title);
+        log.info("fileName : {}", fileName);
+        log.info("title : {}", title);
     }
 
     public void update(String title, String content) {

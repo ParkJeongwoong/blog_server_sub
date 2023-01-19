@@ -84,15 +84,15 @@ public class FileService implements FileUsecase {
             for (MultipartFile imageFile : imageFiles) {
                 imageRepository.save(
                         Image.builder()
-                        .article(articleRepository.findById(articleId).orElse(null))
-                        .directory(image.saveImageFile(imageFile, imageNames.get(imageIdx)))
-                        .build());
+                                .article(articleRepository.findById(articleId).orElse(null))
+                                .directory(image.saveImageFile(imageFile, imageNames.get(imageIdx)))
+                                .build());
                 imageIdx++;
             }
 
-            System.out.println("이미지 저장 완료");
+            log.info("이미지 저장 완료");
         } catch (Exception e) {
-            System.out.println("에러 : " + e.getMessage());
+            log.error("이미지 저장 에러", e);
         }
 
         if (imageIdx != imageFiles.size()) throw new RuntimeException("이미지 저장 중 문제가 발생했습니다");

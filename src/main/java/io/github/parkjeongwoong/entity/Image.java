@@ -3,12 +3,14 @@ package io.github.parkjeongwoong.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
 
+@Slf4j
 @Getter
 @NoArgsConstructor
 @Entity
@@ -42,7 +44,7 @@ public class Image {
         File folder = new File(rootPath);
         boolean isDirectoryCreated = false;
         if (!folder.exists()) isDirectoryCreated = folder.mkdirs();
-        if (!isDirectoryCreated) System.out.println("이미지 저장 폴더를 생성했습니다");
+        if (!isDirectoryCreated) log.info("이미지 저장 폴더를 생성했습니다");
 
         return rootPath;
     }

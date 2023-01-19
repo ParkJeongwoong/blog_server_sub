@@ -46,4 +46,5 @@ dependencies {
     // Mailing
     implementation('org.springframework.boot:spring-boot-starter-mail')
 }
+
 targetCompatibility = JavaVersion.VERSION_1_9

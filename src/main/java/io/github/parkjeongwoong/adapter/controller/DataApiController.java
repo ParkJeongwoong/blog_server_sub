@@ -23,4 +23,8 @@ public class DataApiController {
         dataUsecase.download(request, response, filename);
     }
 
+    // TEST
+    @GetMapping(value = "backup")
+    public boolean backuptest() throws IOException, InterruptedException {return dataUsecase.backup();}
+
 }

@@ -18,6 +18,14 @@ public class DataService implements DataUsecase {
 
     @Value("${download.path}")
     String default_filePath;
+    @Value("$db.username")
+    String dbUsername;
+    @Value("$db.password")
+    String dbPassword;
+    @Value("$db.database")
+    String dbName;
+    @Value("$db.outputLocation")
+    String outputFile;
 
     @Override
     public void download(HttpServletRequest request, HttpServletResponse response, String filename) throws IOException {
@@ -35,6 +43,15 @@ public class DataService implements DataUsecase {
             bufferedStream(response, dFile);
         }
 
+    }
+
+    @Override
+    public boolean backup() throws IOException, InterruptedException {
+        String command = String.format("mysqldump -u %s -p %s --add-drop-table --databases %s -r %s",
+                dbUsername, dbPassword, dbName, outputFile);
+        Process process = Runtime.getRuntime().exec(command);
+        int processComplete = process.waitFor();
+        return processComplete == 0;
     }
 
     private File getFilePath(String filename) {
