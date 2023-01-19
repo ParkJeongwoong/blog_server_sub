@@ -24,7 +24,7 @@ public class DataApiController {
     }
 
     // TEST
-    @GetMapping(value = "backup")
+    @GetMapping(value = "/backup")
     public boolean backuptest() throws IOException, InterruptedException {return dataUsecase.backup();}
 
 }
