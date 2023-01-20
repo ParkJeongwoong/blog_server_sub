@@ -47,11 +47,12 @@ public class DataService implements DataUsecase {
 
     @Override
     public boolean backup() throws IOException, InterruptedException {
-        String command = String.format("mysqldump -u %s -p %s --add-drop-table --databases %s -r %s",
-                dbUsername, dbPassword, dbName, outputFile);
+//        String command = String.format("mysqldump -u %s -p %s --add-drop-table --databases %s -r %s",
+//                dbUsername, dbPassword, dbName, outputFile);
+//        Process process = Runtime.getRuntime().exec(command);
+        String command = String.format("mysqldump -u %s -p %s > %s",
+                dbUsername, dbName, outputFile);
         Process process = Runtime.getRuntime().exec(command);
-//        String command = String.format("mysqldump -u %s -p %s > %s",
-//                dbUsername, dbName, outputFile);
 //        String[] commandArray = new String[] {command, dbPassword};
 //        Process process = Runtime.getRuntime().exec(commandArray);
 //        BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));String line;
@@ -61,7 +62,11 @@ public class DataService implements DataUsecase {
 //        }
         int processComplete = process.waitFor();
 
-        return processComplete == 0;
+        Process process_pw = Runtime.getRuntime().exec(dbPassword);
+        int pwComplete = process_pw.waitFor();
+
+//        return processComplete == 0;
+        return pwComplete == 0;
     }
 
     private File getFilePath(String filename) {
