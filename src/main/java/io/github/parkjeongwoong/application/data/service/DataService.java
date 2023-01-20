@@ -47,8 +47,10 @@ public class DataService implements DataUsecase {
 
     @Override
     public boolean backup() throws IOException, InterruptedException {
-        String command = String.format("mysqldump -u %s -p%s %s > %s",
+        String command = String.format("mysqldump -u %s -p%s --add-drop-table --databases %s -r %s",
                 dbUsername, dbPassword, dbName, outputFile);
+//        String command = String.format("mysqldump -u %s -p%s %s > %s",
+//                dbUsername, dbPassword, dbName, outputFile);
         log.info(command);
         Process process = Runtime.getRuntime().exec(command);
         int processComplete = process.waitFor();
