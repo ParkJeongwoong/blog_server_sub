@@ -50,8 +50,8 @@ public class DataService implements DataUsecase {
 //        String command = String.format("mysqldump -u %s -p %s --add-drop-table --databases %s -r %s",
 //                dbUsername, dbPassword, dbName, outputFile);
 //        Process process = Runtime.getRuntime().exec(command);
-        String command = String.format("mysqldump -u %s -p %s > %s",
-                dbUsername, dbName, outputFile);
+        String command = String.format("mysqldump -u %s -p%s %s > %s",
+                dbUsername, dbPassword, dbName, outputFile);
         Process process = Runtime.getRuntime().exec(command);
 //        String[] commandArray = new String[] {command, dbPassword};
 //        Process process = Runtime.getRuntime().exec(commandArray);
@@ -62,11 +62,7 @@ public class DataService implements DataUsecase {
 //        }
         int processComplete = process.waitFor();
 
-        Process process_pw = Runtime.getRuntime().exec(dbPassword);
-        int pwComplete = process_pw.waitFor();
-
-//        return processComplete == 0;
-        return pwComplete == 0;
+        return processComplete == 0;
     }
 
     private File getFilePath(String filename) {
