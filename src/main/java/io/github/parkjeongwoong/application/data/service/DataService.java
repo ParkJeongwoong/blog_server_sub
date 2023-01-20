@@ -54,8 +54,13 @@ public class DataService implements DataUsecase {
                 dbUsername, dbName, outputFile);
         String[] commandArray = new String[] {command, dbPassword};
         Process process = Runtime.getRuntime().exec(commandArray);
-//        BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));String line;
+
+        while ((line = input.readLine()) != null) {
+            System.out.println(line);
+        }
         int processComplete = process.waitFor();
+
         return processComplete == 0;
     }
 
