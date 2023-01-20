@@ -49,11 +49,11 @@ public class DataService implements DataUsecase {
     public boolean backup() throws IOException, InterruptedException {
 //        String command = String.format("mysqldump -u %s -p %s --add-drop-table --databases %s -r %s",
 //                dbUsername, dbPassword, dbName, outputFile);
-        String command = String.format("mysqldump -u %s -p %s > %s",
-                dbUsername, dbName, outputFile);
-        Process process1 = Runtime.getRuntime().exec(command);
-        Process process2 = Runtime.getRuntime().exec(dbPassword);
-        int processComplete = process2.waitFor();
+        String[] command = new String[] {String.format("mysqldump -u %s -p %s > %s",
+                dbUsername, dbName, outputFile), dbPassword};
+        Process process = Runtime.getRuntime().exec(command);
+//        BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        int processComplete = process.waitFor();
         return processComplete == 0;
     }
 
