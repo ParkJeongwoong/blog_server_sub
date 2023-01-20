@@ -24,8 +24,8 @@ public class DataService implements DataUsecase {
     String dbPassword;
     @Value("${db.database}")
     String dbName;
-    @Value("${db.outputLocation}")
-    String outputFile;
+    @Value("${db.fileLocation}")
+    String fileLocation;
 
     @Override
     public void download(HttpServletRequest request, HttpServletResponse response, String filename) throws IOException {
@@ -48,14 +48,27 @@ public class DataService implements DataUsecase {
     @Override
     public boolean backup() throws IOException, InterruptedException {
         String command = String.format("mysqldump -u %s -p%s --add-drop-table --databases %s -r %s",
-                dbUsername, dbPassword, dbName, outputFile);
-//        String command = String.format("mysqldump -u %s -p%s %s > %s",
-//                dbUsername, dbPassword, dbName, outputFile);
+                dbUsername, dbPassword, dbName, fileLocation);
         log.info(command);
         Process process = Runtime.getRuntime().exec(command);
         int processComplete = process.waitFor();
         log.info(String.valueOf(processComplete));
 
+        return processComplete == 0;
+    }
+
+    @Override
+    public boolean restore() throws IOException, InterruptedException {
+        String[] command = new String[]{
+                "mysql",
+                "-u" + dbUsername,
+                "-p" + dbPassword,
+                "-e",
+                " source " + fileLocation,
+                dbName
+        };
+        Process runtimeProcess = Runtime.getRuntime().exec(command);
+        int processComplete = runtimeProcess.waitFor();
         return processComplete == 0;
     }
 

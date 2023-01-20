@@ -1,5 +1,6 @@
 package io.github.parkjeongwoong.adapter.controller;
 
+import io.github.parkjeongwoong.application.data.service.ServerSynchronizingService;
 import io.github.parkjeongwoong.application.data.usecase.DataUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,5 +27,10 @@ public class DataApiController {
     // TEST
     @GetMapping(value = "/backup")
     public boolean backuptest() throws IOException, InterruptedException {return dataUsecase.backup();}
+    @GetMapping(value = "/restore")
+    public boolean restoretest() throws IOException, InterruptedException {return dataUsecase.restore();}
+    private final ServerSynchronizingService synchronizingService;
+    @GetMapping(value = "/sync")
+    public void synctest() {synchronizingService.getVisitorTableFromMainServer();}
 
 }

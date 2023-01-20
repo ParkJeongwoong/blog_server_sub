@@ -45,7 +45,7 @@ public class FileService implements FileUsecase {
             save_images(imageFiles, changedImageNames, articleId);
             return new CommonResponseDto("Save Article", "Success", "등록되었습니다");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Save Article Error", e);
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new CommonResponseDto("Save Article", "Failed", e.getMessage());
         }

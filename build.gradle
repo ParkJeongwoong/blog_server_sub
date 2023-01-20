@@ -39,6 +39,9 @@ dependencies {
     implementation("org.springframework.session:spring-session-jdbc")
     implementation("org.mariadb.jdbc:mariadb-java-client")
 
+    // WebClient
+    implementation('org.springframework.boot:spring-boot-starter-webflux')
+
     // Logging
     implementation('org.slf4j:jcl-over-slf4j')
     implementation('ch.qos.logback:logback-classic')
