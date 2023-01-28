@@ -9,16 +9,22 @@ import io.github.parkjeongwoong.application.data.usecase.DataUsecase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,8 +32,6 @@ import java.net.UnknownHostException;
 public class ServerSynchronizingService {
 
     private final MailingUsecase mailingUsecase;
-    private final DataUsecase dataUsecase;
-    private WebClient webClient;
 
     @Value("${main.server}")
     String mainServer;
@@ -35,10 +39,11 @@ public class ServerSynchronizingService {
     String mainServerIp;
     @Value("${backup.db.main.pw}")
     String mainServerPw;
+    @Value("${db.sync.location}")
+    String syncFileDownloadPath;
 
-    @PostConstruct
-    public void initWebClient() {
-        webClient = WebClient.builder().defaultHeader(HttpHeaders.CONTENT_TYPE, "application/json").build();
+    private WebClient WebClient(String contentType) {
+        return WebClient.builder().defaultHeader(HttpHeaders.CONTENT_TYPE, contentType).build();
     }
 
     @Scheduled(cron = "0 5 * * * *")
@@ -63,12 +68,15 @@ public class ServerSynchronizingService {
         try {
             String jsonString = mapper.writeValueAsString(requestDto);
 
-            webClient.post()
+            Flux<DataBuffer> dataBufferFlux = WebClient("application/json").post()
                     .uri(BACKUP_URL)
                     .body(BodyInserters.fromValue(jsonString))
+                    .accept(MediaType.APPLICATION_OCTET_STREAM)
                     .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
+                    .bodyToFlux(DataBuffer.class);
+
+            Path path = Paths.get(syncFileDownloadPath);
+            DataBufferUtils.write(dataBufferFlux, path, StandardOpenOption.CREATE).block();
 
             log.info("Backup From : {}", mainServer);
         } catch (JsonProcessingException e) {
