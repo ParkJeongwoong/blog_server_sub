@@ -25,14 +25,14 @@ public class DataApiController {
     }
 
     // TEST
-    @GetMapping(value = "/backup")
-    public boolean backuptest() throws IOException, InterruptedException {return dataUsecase.backup();}
-    @GetMapping(value = "/restore")
-    public boolean restoretest() throws IOException, InterruptedException {return dataUsecase.restore();}
-    private final ServerSynchronizingService synchronizingService;
-    @GetMapping(value = "/sync")
-    public void synctest() {synchronizingService.getVisitorTableFromMainServer();}
-    @GetMapping(value = "/unzip")
-    public boolean unziptest() throws IOException, InterruptedException {return dataUsecase.unzip();}
+//    @GetMapping(value = "/backup")
+//    public boolean backuptest() throws IOException, InterruptedException {return dataUsecase.backup();}
+//    @GetMapping(value = "/restore")
+//    public boolean restoretest() throws IOException, InterruptedException {return dataUsecase.restore();}
+//    private final ServerSynchronizingService synchronizingService;
+//    @GetMapping(value = "/sync")
+//    public void synctest() {synchronizingService.getVisitorTableFromMainServer();}
+//    @GetMapping(value = "/unzip")
+//    public boolean unziptest() throws IOException, InterruptedException {return dataUsecase.unzip();}
 
 }

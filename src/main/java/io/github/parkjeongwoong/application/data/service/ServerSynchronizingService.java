@@ -57,7 +57,8 @@ public class ServerSynchronizingService {
         }
     }
 
-    public void getVisitorTableFromMainServer() {
+    @Scheduled(cron = "0 0 5 * * *") // 5시에 동기화 시작 (1)
+    private void getVisitorTableFromMainServer() {
         log.info("Get Visitor dump data from main server.");
         if (isMainServerNotExist()) return;
 

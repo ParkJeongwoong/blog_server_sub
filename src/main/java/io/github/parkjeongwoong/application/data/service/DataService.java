@@ -4,6 +4,7 @@ import io.github.parkjeongwoong.application.data.usecase.DataUsecase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,8 +59,8 @@ public class DataService implements DataUsecase {
         return processComplete == 0;
     }
 
-    @Override
-    public boolean restore() throws IOException, InterruptedException {
+    @Scheduled(cron = "0 10 5 * * *") // 5시에 동기화 시작 (3)
+    private boolean restore() throws IOException, InterruptedException {
         String[] command = new String[]{
                 "mysql",
                 "-u" + dbUsername,
@@ -73,8 +74,8 @@ public class DataService implements DataUsecase {
         return processComplete == 0;
     }
 
-    @Override
-    public boolean unzip() throws IOException, InterruptedException {
+    @Scheduled(cron = "0 5 5 * * *") // 5시에 동기화 시작 (2)
+    private boolean unzip() throws IOException, InterruptedException {
         String command = String.format("tar -zxvf %s -C %s", syncFileDownloadPath, directoryLocation);
         Process process = Runtime.getRuntime().exec(command);
         int processComplete = process.waitFor();
