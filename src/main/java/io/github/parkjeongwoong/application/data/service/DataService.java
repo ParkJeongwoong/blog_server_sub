@@ -26,7 +26,7 @@ public class DataService implements DataUsecase {
     String dbName;
     @Value("${db.fileLocation}")
     String fileLocation;
-    @Value("${db.directoryLocation }")
+    @Value("${db.directoryLocation}")
     String directoryLocation;
     @Value("${db.sync.fileLocation}")
     String syncFileDownloadPath;
