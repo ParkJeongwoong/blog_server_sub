@@ -37,7 +37,7 @@ public class DataService implements DataUsecase {
             return ;
         }
 
-        File dFile = getFilePath(filename);
+        File dFile = getFile(filename);
 
         long fSize = dFile.length();
 
@@ -65,7 +65,7 @@ public class DataService implements DataUsecase {
                 "-u" + dbUsername,
                 "-p" + dbPassword,
                 "-e",
-                " source " + fileLocation,
+                " source " + getBackupFilePath(directoryLocation),
                 dbName
         };
         Process runtimeProcess = Runtime.getRuntime().exec(command);
@@ -81,7 +81,7 @@ public class DataService implements DataUsecase {
         return processComplete == 0;
     }
 
-    private File getFilePath(String filename) {
+    private File getFile(String filename) {
         String filePath = default_filePath + filename;
         File dFile = new File(filePath);
         if (!dFile.exists()) {
@@ -98,6 +98,14 @@ public class DataService implements DataUsecase {
 
         log.info("File Path : {}", filePath);
         return dFile;
+    }
+
+    private String getBackupFilePath(String directoryPath) {
+        File directory = new File(directoryPath);
+        FileFilter filter = pathname -> pathname.getName().startsWith("mariadb_")&&pathname.getName().endsWith("sql");
+        File[] files = directory.listFiles(filter);
+        log.info("backup file : {}", files[0].getName());
+        return files[0].getPath();
     }
 
     private void setResponse(HttpServletResponse response, String encodedFilename, long fSize) {
