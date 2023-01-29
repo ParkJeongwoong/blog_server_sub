@@ -26,6 +26,8 @@ public class DataService implements DataUsecase {
     String dbName;
     @Value("${db.fileLocation}")
     String fileLocation;
+    @Value("${db.sync.fileLocation}")
+    String syncFileDownloadPath;
 
     @Override
     public void download(HttpServletRequest request, HttpServletResponse response, String filename) throws IOException {
@@ -71,7 +73,7 @@ public class DataService implements DataUsecase {
 
     @Override
     public boolean unzip() throws IOException, InterruptedException {
-        String command = String.format("tar -zxvf %s", fileLocation);
+        String command = String.format("tar -zxvf %s", syncFileDownloadPath);
         Process process = Runtime.getRuntime().exec(command);
         int processComplete = process.waitFor();
         return processComplete == 0;
