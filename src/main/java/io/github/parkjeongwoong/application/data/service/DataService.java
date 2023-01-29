@@ -26,6 +26,8 @@ public class DataService implements DataUsecase {
     String dbName;
     @Value("${db.fileLocation}")
     String fileLocation;
+    @Value("${db.directoryLocation }")
+    String directoryLocation;
     @Value("${db.sync.fileLocation}")
     String syncFileDownloadPath;
 
@@ -73,7 +75,7 @@ public class DataService implements DataUsecase {
 
     @Override
     public boolean unzip() throws IOException, InterruptedException {
-        String command = String.format("tar -zxvf %s", syncFileDownloadPath);
+        String command = String.format("tar -zxvf %s -C %s", syncFileDownloadPath, directoryLocation);
         Process process = Runtime.getRuntime().exec(command);
         int processComplete = process.waitFor();
         return processComplete == 0;
