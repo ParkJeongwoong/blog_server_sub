@@ -49,11 +49,8 @@ public class DataService implements DataUsecase {
     public boolean backup() throws IOException, InterruptedException {
         String command = String.format("mysqldump -u %s -p%s --add-drop-table --databases %s -r %s",
                 dbUsername, dbPassword, dbName, fileLocation);
-        log.info(command);
         Process process = Runtime.getRuntime().exec(command);
         int processComplete = process.waitFor();
-        log.info(String.valueOf(processComplete));
-
         return processComplete == 0;
     }
 
@@ -69,6 +66,14 @@ public class DataService implements DataUsecase {
         };
         Process runtimeProcess = Runtime.getRuntime().exec(command);
         int processComplete = runtimeProcess.waitFor();
+        return processComplete == 0;
+    }
+
+    @Override
+    public boolean unzip() throws IOException, InterruptedException {
+        String command = String.format("tar -zxvf %s", fileLocation);
+        Process process = Runtime.getRuntime().exec(command);
+        int processComplete = process.waitFor();
         return processComplete == 0;
     }
 

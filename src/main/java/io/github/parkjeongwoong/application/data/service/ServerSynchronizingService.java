@@ -39,7 +39,7 @@ public class ServerSynchronizingService {
     String mainServerIp;
     @Value("${backup.db.main.pw}")
     String mainServerPw;
-    @Value("${db.sync.location}")
+    @Value("${db.sync.fileLocation}")
     String syncFileDownloadPath;
 
     private WebClient WebClient(String contentType) {
