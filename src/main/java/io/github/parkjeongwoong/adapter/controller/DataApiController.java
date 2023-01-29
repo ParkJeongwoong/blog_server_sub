@@ -32,5 +32,7 @@ public class DataApiController {
     private final ServerSynchronizingService synchronizingService;
     @GetMapping(value = "/sync")
     public void synctest() {synchronizingService.getVisitorTableFromMainServer();}
+    @GetMapping(value = "/unzip")
+    public boolean unziptest() throws IOException, InterruptedException {return dataUsecase.unzip();}
 
 }
