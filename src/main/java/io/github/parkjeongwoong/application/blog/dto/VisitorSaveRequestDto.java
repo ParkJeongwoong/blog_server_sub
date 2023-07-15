@@ -18,11 +18,13 @@ public class VisitorSaveRequestDto {
     private String url;
     private String lastPage;
     private String ip;
+    private String referrer;
 
     @Builder
-    public VisitorSaveRequestDto(String url, String lastPage) {
+    public VisitorSaveRequestDto(String url, String lastPage, String referrer) {
         this.url = url;
         this.lastPage = lastPage;
+        this.referrer = referrer;
     }
 
     public Visitor toEntity() {
@@ -31,6 +33,7 @@ public class VisitorSaveRequestDto {
                 .url(url)
                 .lastPage(lastPage)
                 .ip(ip)
+                .referrer(referrer)
                 .build();
     }
 

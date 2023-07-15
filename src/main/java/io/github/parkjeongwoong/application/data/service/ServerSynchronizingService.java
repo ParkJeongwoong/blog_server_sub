@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.parkjeongwoong.application.blog.dto.MailSendDto;
 import io.github.parkjeongwoong.application.blog.usecase.MailingUsecase;
 import io.github.parkjeongwoong.application.data.dto.SyncServerRequestDto;
-import io.github.parkjeongwoong.application.data.usecase.DataUsecase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

@@ -29,11 +29,15 @@ public class Visitor extends BaseTimeEntity {
     @Column(nullable = false)
     private boolean justVisited;
 
+    @Column(length = 100)
+    private String referrer;
+
     @Builder
-    public Visitor(String url, String lastPage, String ip) {
+    public Visitor(String url, String lastPage, String ip, String referrer) {
         this.url = url;
         this.lastPage = lastPage;
         this.ip = ip;
         this.justVisited = this.lastPage == null;
+        this.referrer = referrer;
     }
 }
